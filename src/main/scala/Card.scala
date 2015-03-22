@@ -12,7 +12,7 @@ class Card(card: String) {
   }
 
   def value: Int = {
-    Card.values(face)
+    Card.value(face)
   }
 
   override def toString: String = {
@@ -27,21 +27,29 @@ class Card(card: String) {
 object Card {
   def apply(cs: String): Card = new Card(cs)
 
-  def suits: Seq[String] = List("C", "H", "D", "S")
+  val suits: List[String] = 
+    List("C", "H", "D", "S")
 
-  def values(key: String): Int = key match {
-    case "2" => 2
-    case "3" => 3
-    case "4" => 4
-    case "5" => 5
-    case "6" => 6
-    case "7" => 7
-    case "8" => 8
-    case "9" => 9
-    case "T" => 10
-    case "J" => 11
-    case "Q" => 12
-    case "K" => 13
-    case "A" => 14
-  } 
+  val faces: List[String] = 
+    (2 to 9).map(_.toString).toList ::: List("T", "J", "Q", "K", "A")
+
+  def value(key: String): Int = {
+    values.find(v => v._1 == key).get._2
+  }
+
+  private val values: List[(String, Int)] = List(
+    ("2", 2),
+    ("3", 3),
+    ("4", 4),
+    ("5", 5),
+    ("6", 6),
+    ("7", 7),
+    ("8", 8),
+    ("9", 9),
+    ("T", 10),
+    ("J", 11),
+    ("Q", 12),
+    ("K", 13),
+    ("A", 14)
+  )
 }
