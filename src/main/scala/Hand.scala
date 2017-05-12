@@ -14,10 +14,11 @@ class Hand(val cards: List[Card]) {
     }
 
     def compare(a: (Hand, HandType, List[Int]), b: (Hand, HandType, List[Int])): Option[(Hand, HandType)] = {
-      if (a._3 > b._3) return Some((a._1, a._2))
-      if (b._3 > a._3) return Some((b._1, b._2))
-      
-      None
+      (a._3 > b._3, b._3 > a._3) match {
+        case (true, false) => Some((a._1, a._2))
+        case (false, true) => Some((b._1, b._2))
+        case _ => None
+      }
     }
 
     compare(eval(this), eval(that)) match {
